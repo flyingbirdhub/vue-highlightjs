@@ -1,5 +1,8 @@
+const esModules = ['lodash-es'].join('|');
+
 module.exports = {
   modulePathIgnorePatterns: ['dist'],
+  preset: 'ts-jest',
   testMatch: [
     '**/tests/**/*.spec.[jt]s?(x)',
     '**/__tests__/*.[jt]s?(x)'
@@ -9,7 +12,7 @@ module.exports = {
   collectCoverageFrom: ["src/**/*.{js,ts,vue}", "!node_modules/**", "!dist/**"],
   transform: {
     '^.+\\.vue$': 'vue-jest',
-    '^.+\\.tsx?$': "ts-jest",
+    [`(${esModules}).+\\.js$`]: 'babel-jest',
   },
   moduleNameMapper: {
     '^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
@@ -21,6 +24,9 @@ module.exports = {
     'jsx',
     'json',
     'vue',
+  ],
+  transformIgnorePatterns: [
+    `<rootDir>/node_modules/(?!${esModules})`
   ],
   globals: {
     'ts-jest': {
