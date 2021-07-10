@@ -1,6 +1,6 @@
 {
   "name": "vue-highlightjs-all",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "基于vue封装highlightjs功能，提供指令v-highlightjs和vue组件VueHighlightjs",
   "license": "MIT",
   "main": "dist/index",

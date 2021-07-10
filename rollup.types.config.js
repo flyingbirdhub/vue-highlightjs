@@ -5,7 +5,7 @@ import dts from 'rollup-plugin-dts';
 const external = ['vue', 'highlight.js', /\.vue$/];
 
 export default [{
-  input: 'dist/types/index.d.ts',
+  input: 'dist/types/src/index.d.ts',
   output: [{
     file: 'dist/index.esm.d.ts',
     format: 'esm',
