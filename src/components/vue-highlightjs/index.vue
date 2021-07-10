@@ -33,7 +33,7 @@ export default defineComponent({
       isEscaped: props.isEscaped,
     });
     watch(
-      [props.language, props.text, props.isEscaped],
+      () => [props.language, props.text, props.isEscaped],
       () => {
         formatUtil.update({
           language: props.language,

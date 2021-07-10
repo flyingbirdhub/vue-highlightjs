@@ -32,4 +32,32 @@ describe('format code to colorful', () => {
           }"
     `);
   });
+  it('new FormatUtil without language, then get content, should be formatted', () => {
+    const util = new FormatUtil({
+      text,
+      isEscaped: true,
+    });
+    expect(util.content).toMatchInlineSnapshot(`
+      "
+          <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title\\">test</span>() {
+              console.log(&amp;#39;hello&amp;#39;);
+          }"
+    `);
+  });
+  it('new FormatUtil no text, then get content, should get space', () => {
+    const util = new FormatUtil({});
+    expect(util.content).toMatchInlineSnapshot(`""`);
+  });
+  it('new FormatUtil update, then get content, should be formatted', () => {
+    const util = new FormatUtil({});
+    util.update({
+      text,
+    });
+    expect(util.content).toMatchInlineSnapshot(`
+      "
+          <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title function_\\">test</span>(<span class=\\"hljs-params\\"></span>) {
+              <span class=\\"hljs-variable language_\\">console</span>.<span class=\\"hljs-title function_\\">log</span>(<span class=\\"hljs-string\\">&#x27;hello&#x27;</span>);
+          }"
+    `);
+  });
 });
