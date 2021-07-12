@@ -7,6 +7,7 @@ module.exports = {
     '**/tests/**/*.spec.[jt]s?(x)',
     '**/__tests__/*.[jt]s?(x)'
   ],
+  setupFiles: ['<rootDir>/tests/unit/__mocks__/worker.js'],
   coverageReporters: ["json", "lcov", "text", "clover"],
   collectCoverage: true,
   collectCoverageFrom: ["src/**/*.{js,ts,vue}", "!node_modules/**", "!dist/**"],

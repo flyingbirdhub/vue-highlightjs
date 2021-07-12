@@ -1,6 +1,6 @@
-import { FormatUtil } from '@/common/index';
 import type { DirectiveBinding } from 'vue';
 import { isObject, isString } from 'lodash-es';
+import { formatText } from '@/webworker/main';
 
 type BindingType = {
   language: string,
@@ -9,7 +9,7 @@ type BindingType = {
 
 // v-highlightjs.escaped="text"
 // v-highlightjs.escaped="{text: '', language: ''}"
-const highlightUpdate = (el: HTMLElement, binding: DirectiveBinding<BindingType | string>) => {
+const highlightUpdate = async (el: HTMLElement, binding: DirectiveBinding<BindingType | string>) => {
   const targets = el.querySelectorAll('code');
   if (targets?.length < 1) {
     return;
@@ -31,12 +31,15 @@ const highlightUpdate = (el: HTMLElement, binding: DirectiveBinding<BindingType 
   if (!text) {
     return;
   }
-  const format = new FormatUtil({
-    language,
-    text,
-    isEscaped,
-  });
-  target.innerHTML = format.content;
+  try {
+    target.innerHTML = await formatText({
+      language,
+      text,
+      isEscaped,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export default {

@@ -28,7 +28,8 @@
       "esnext",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "scripthost",
+      "WebWorker",
     ]
   },
   "include": [
@@ -38,7 +39,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/*.js",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx", "tests/unit/__mocks__/worker.js"
   ],
   "exclude": [
     "node_modules",

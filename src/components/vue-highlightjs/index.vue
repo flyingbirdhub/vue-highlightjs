@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
-import { FormatUtil } from '@/common/index';
+import { formatText } from '@/webworker/main';
 
 export default defineComponent({
   name: 'VueHighlightjs',
@@ -27,20 +27,18 @@ export default defineComponent({
   },
   setup(props) {
     const content = ref('');
-    const formatUtil = new FormatUtil({
-      language: props.language,
-      text: props.text,
-      isEscaped: props.isEscaped,
-    });
     watch(
       () => [props.language, props.text, props.isEscaped],
-      () => {
-        formatUtil.update({
-          language: props.language,
-          text: props.text,
-          isEscaped: props.isEscaped,
-        });
-        content.value = formatUtil.content;
+      async () => {
+        try {
+            content.value = await formatText({
+            language: props.language,
+            text: props.text,
+            isEscaped: props.isEscaped,
+          });
+        } catch(e) {
+          console.log(e);
+        }
       },
       {
         immediate: true,

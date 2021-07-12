@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { reactive, h } from 'vue';
+import { h } from 'vue';
 import VueHighlightjs from '@/components/vue-highlightjs/index.vue';
 
 describe('tests for VueHighlightjs Component', () => {

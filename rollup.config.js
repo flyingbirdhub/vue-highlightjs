@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import vue from 'rollup-plugin-vue'
 import alias from '@rollup/plugin-alias';
 import babel from 'rollup-plugin-babel';
+import workerLoader from 'rollup-plugin-web-worker-loader';
 
 function plugins() {
   return [
@@ -14,6 +15,10 @@ function plugins() {
       }],
     }),
     resolve(),
+    workerLoader({
+      targetPlatform: 'browser',
+      // external: ['highlight.js'],
+    }),
     typescript({
       sourceMap: false,
       useTsconfigDeclarationDir: true,
@@ -28,7 +33,7 @@ function plugins() {
   ];
 }
 
-const external = ['vue', 'highlight.js'];
+const external = ['vue'];
 
 export default [{
   input: 'src/index.ts',

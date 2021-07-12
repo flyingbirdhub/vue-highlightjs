@@ -8,7 +8,7 @@ interface Constructor {
   isEscaped?: boolean;
 };
 
-interface UpdateType extends  Constructor {
+export interface UpdateType extends  Constructor {
   text: string;
 }
 
