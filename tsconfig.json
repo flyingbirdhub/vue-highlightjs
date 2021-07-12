@@ -39,7 +39,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/*.js",
-    "tests/**/*.tsx", "tests/unit/__mocks__/worker.js"
+    "tests/**/*.tsx",
+    "tests/unit/__mocks__/worker.js"
   ],
   "exclude": [
     "node_modules",

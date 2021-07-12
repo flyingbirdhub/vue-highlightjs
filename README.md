@@ -4,6 +4,8 @@ Using highlight.js to format code in web worker.
 
 Vue component (based on Vue3) and Vue directive (Vue2 or Vue3) are provided.
 
+> npm package version 1 do not use webworker, but version 2 use webworker.
+
 ## Usage
 
 ### install highlight.js package
