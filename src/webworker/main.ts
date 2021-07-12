@@ -17,7 +17,6 @@ export async function formatText(data: UpdateType) {
     if (data.text && isString(data.text)) {
         const promise = new Promise<string>((resolve, reject) => {
             worker.onmessage = (e) => {
-              console.log('resolve: ', e.data);
                 resolve(e.data);
             };
             worker.onerror = (e) => {
