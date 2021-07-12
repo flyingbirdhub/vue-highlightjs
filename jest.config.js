@@ -7,7 +7,7 @@ module.exports = {
     '**/tests/**/*.spec.[jt]s?(x)',
     '**/__tests__/*.[jt]s?(x)'
   ],
-  setupFiles: ['<rootDir>/tests/unit/__mocks__/worker.js'],
+  setupFilesAfterEnv: ['./tests/unit/__mocks__/worker.js'],
   coverageReporters: ["json", "lcov", "text", "clover"],
   collectCoverage: true,
   collectCoverageFrom: ["src/**/*.{js,ts,vue}", "!node_modules/**", "!dist/**"],
@@ -17,6 +17,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
+    '^web-worker:.+': 'jest-transform-stub',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   moduleFileExtensions: [

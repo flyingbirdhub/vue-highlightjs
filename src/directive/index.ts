@@ -28,7 +28,7 @@ const highlightUpdate = async (el: HTMLElement, binding: DirectiveBinding<Bindin
   } else {
     text = target.textContent;
   }
-  if (!text) {
+  if (!isString(text)) {
     return;
   }
   try {

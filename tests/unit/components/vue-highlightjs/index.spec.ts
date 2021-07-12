@@ -1,9 +1,10 @@
 import { mount } from '@vue/test-utils';
+import flushPromises from 'flush-promises';
 import { h } from 'vue';
 import VueHighlightjs from '@/components/vue-highlightjs/index.vue';
 
 describe('tests for VueHighlightjs Component', () => {
-  it('mount VueHighlightjs', () => {
+  it('mount VueHighlightjs', async () => {
     const text = `
         function test() {
             console.log('test highlightjs');
@@ -13,15 +14,15 @@ describe('tests for VueHighlightjs Component', () => {
         text,
       },
     });
+    await flushPromises();
     expect(wrapper.html()).toMatchInlineSnapshot(`
-      "<pre>    <code>
+      "<pre><code>
               <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title\\">test</span>() {
                   console.log(&amp;#39;test highlightjs&amp;#39;);
-              }</code>
-        </pre>"
+              }</code></pre>"
     `);
   });
-  it('update VueHighlightjs', (done) => {
+  it('update VueHighlightjs', async () => {
     const text = `
         function test() {
             console.log('test highlightjs');
@@ -40,15 +41,12 @@ describe('tests for VueHighlightjs Component', () => {
       },
     });
     wrapper.vm.text = text;
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.html()).toMatchInlineSnapshot(`
-        "<pre>    <code>
-                <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title\\">test</span>() {
-                    console.log(&amp;#39;test highlightjs&amp;#39;);
-                }</code>
-          </pre>"
-      `);
-      done();
-    });
+    await flushPromises();
+    expect(wrapper.html()).toMatchInlineSnapshot(`
+      "<pre><code>
+              <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title\\">test</span>() {
+                  console.log(&amp;#39;test highlightjs&amp;#39;);
+              }</code></pre>"
+    `);
   });
 });

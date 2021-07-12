@@ -16,14 +16,15 @@ const worker = new Worker();
 export async function formatText(data: UpdateType) {
     if (data.text && isString(data.text)) {
         const promise = new Promise<string>((resolve, reject) => {
-            worker.postMessage(JSON.stringify(data));
             worker.onmessage = (e) => {
+              console.log('resolve: ', e.data);
                 resolve(e.data);
-            }
+            };
             worker.onerror = (e) => {
                 e.preventDefault();
                 reject(e);
-            }
+            };
+            worker.postMessage(data);
         });
         return promise;
     }

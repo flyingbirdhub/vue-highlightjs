@@ -1,8 +1,6 @@
 
 <template>
-  <pre>
-    <code v-html="content"></code>
-  </pre>
+  <pre><code v-html="content"></code></pre>
 </template>
 
 <script lang="ts">
@@ -31,12 +29,12 @@ export default defineComponent({
       () => [props.language, props.text, props.isEscaped],
       async () => {
         try {
-            content.value = await formatText({
+          content.value = await formatText({
             language: props.language,
             text: props.text,
             isEscaped: props.isEscaped,
           });
-        } catch(e) {
+        } catch (e) {
           console.log(e);
         }
       },

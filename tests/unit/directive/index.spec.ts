@@ -1,4 +1,5 @@
 import { h, resolveDirective, withDirectives } from 'vue';
+import flushPromises from 'flush-promises';
 import { mount } from '@vue/test-utils';
 import directive from '@/directive';
 
@@ -7,7 +8,7 @@ describe('tests for vue highlightjs directive', () => {
     function test() {
         console.log('hello, highlightjs!');
     }`;
-  it('no code tag, innerHTML is not changed', () => {
+  it('no code tag, innerHTML is not changed', async () => {
     const wrapper = mount({
       directives: {
         highlightjs: directive,
@@ -17,9 +18,10 @@ describe('tests for vue highlightjs directive', () => {
         return withDirectives(h('pre', 'no code tag'), [[highlightjs!]]);
       },
     });
+    await flushPromises();
     expect(wrapper.html()).toMatchInlineSnapshot(`"<pre>no code tag</pre>"`);
   });
-  it('code tag exists, innerHTML is changed', () => {
+  it('code tag exists, innerHTML is changed', async () => {
     const wrapper = mount({
       directives: {
         highlightjs: directive,
@@ -29,6 +31,7 @@ describe('tests for vue highlightjs directive', () => {
         return withDirectives(h('pre', [h('code', {}, text)]), [[highlightjs!]]);
       },
     });
+    await flushPromises();
     expect(wrapper.html()).toMatchInlineSnapshot(`
       "<pre><code>
           <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title\\">test</span>() {
@@ -36,7 +39,7 @@ describe('tests for vue highlightjs directive', () => {
           }</code></pre>"
     `);
   });
-  it('code tag exists, bind value is Object', () => {
+  it('code tag exists, bind value is Object', async () => {
     const wrapper = mount({
       directives: {
         highlightjs: directive,
@@ -58,6 +61,7 @@ describe('tests for vue highlightjs directive', () => {
         ]);
       },
     });
+    await flushPromises();
     expect(wrapper.html()).toMatchInlineSnapshot(`
       "<pre><code>
           <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title function_\\">test</span>(<span class=\\"hljs-params\\"></span>) {
@@ -65,7 +69,7 @@ describe('tests for vue highlightjs directive', () => {
           }</code></pre>"
     `);
   });
-  it('code tag exists, bind value is Object, but without text, should not convert', () => {
+  it('code tag exists, bind value is Object, but without text, should not convert', async () => {
     const wrapper = mount({
       directives: {
         highlightjs: directive,
@@ -86,6 +90,7 @@ describe('tests for vue highlightjs directive', () => {
         ]);
       },
     });
+    await flushPromises();
     expect(wrapper.html()).toMatchInlineSnapshot(`
       "<pre><code>
           function test() {
@@ -93,7 +98,7 @@ describe('tests for vue highlightjs directive', () => {
           }</code></pre>"
     `);
   });
-  it('code tag exists, bind value is string', () => {
+  it('code tag exists, bind value is string', async () => {
     const wrapper = mount({
       directives: {
         highlightjs: directive,
@@ -112,6 +117,7 @@ describe('tests for vue highlightjs directive', () => {
         ]);
       },
     });
+    await flushPromises();
     expect(wrapper.html()).toMatchInlineSnapshot(`
       "<pre><code>
           <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title function_\\">test</span>(<span class=\\"hljs-params\\"></span>) {
@@ -119,7 +125,7 @@ describe('tests for vue highlightjs directive', () => {
           }</code></pre>"
     `);
   });
-  it('code tag exists, update value', (done) => {
+  it('code tag exists, update value', async () => {
     const wrapper = mount({
       data() {
         return {
@@ -144,16 +150,15 @@ describe('tests for vue highlightjs directive', () => {
         ]);
       },
     });
+    await flushPromises();
     expect(wrapper.html()).toMatchInlineSnapshot(`"<pre><code></code></pre>"`);
     wrapper.vm.value = text;
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.html()).toMatchInlineSnapshot(`
-        "<pre><code>
-            <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title function_\\">test</span>(<span class=\\"hljs-params\\"></span>) {
-                <span class=\\"hljs-variable language_\\">console</span>.<span class=\\"hljs-title function_\\">log</span>(<span class=\\"hljs-string\\">'hello, highlightjs!'</span>);
-            }</code></pre>"
-      `);
-      done();
-    });
+    await flushPromises();
+    expect(wrapper.html()).toMatchInlineSnapshot(`
+      "<pre><code>
+          <span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title function_\\">test</span>(<span class=\\"hljs-params\\"></span>) {
+              <span class=\\"hljs-variable language_\\">console</span>.<span class=\\"hljs-title function_\\">log</span>(<span class=\\"hljs-string\\">'hello, highlightjs!'</span>);
+          }</code></pre>"
+    `);
   });
 });
