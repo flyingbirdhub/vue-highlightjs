@@ -6,6 +6,14 @@ Vue component (based on Vue3) and Vue directive (Vue2 or Vue3) are provided.
 
 ## Usage
 
+### install highlight.js package
+
+npm i highlight.js OR yarn add highlight.js
+
+### import highlight.js css
+
+import 'highlight.js/styles/default.css';
+
 ### Vue directive
 
 ```javascript

@@ -6,7 +6,7 @@
   "main": "dist/index",
   "module": "dist/index.esm",
   "types": "dist/index.esm",
-  "homepage": "https://github.com/flyingbirdhub/vue-highlightjs",
+  "homepage": "https://github.com/flyingbirdhub/vue-highlightjs#readme",
   "bugs": {
     "url": "https://github.com/flyingbirdhub/vue-highlightjs/issues"
   },
